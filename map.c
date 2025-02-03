@@ -1120,154 +1120,154 @@ void check_time() {
 
 void print_message(int cond, int damage) {
     for(int i = 0; i < 100; i++)
-        mvprintw(0, i, " ");
+        mvprintw(1, i, " ");
     time(&now);
     if(cond == 80) {
-        mvprintw(0, 0, "You Have peaked up ancient Key");
+        mvprintw(1, 0, "You Have peaked up ancient Key");
         duration = 4;
     }
     if(cond == 0) {
-        mvprintw(0, 0, "You can have at most 5 unit of food");
+        mvprintw(1, 0, "You can have at most 5 unit of food");
         duration = 2;
     }
     if(cond == 1) {
-        mvprintw(0, 0, "You have peaked up common food");
+        mvprintw(1, 0, "You have peaked up common food");
         duration = 4;
     }
     if(cond == 2) {
-        mvprintw(0, 0, "You have peaked up great food");
+        mvprintw(1, 0, "You have peaked up great food");
         duration = 4;
     }
     if(cond == 3) {
-        mvprintw(0, 0, "You have peaked up magic food");
+        mvprintw(1, 0, "You have peaked up magic food");
         duration = 4;
     }
     if(cond == 4) {
-        mvprintw(0, 0, "weapons changed successfully");
+        mvprintw(1, 0, "weapons changed successfully");
         duration = 4;
     }
     if(cond == 5) {
-        mvprintw(0, 0, "Mace peaked up successfully");
+        mvprintw(1, 0, "Mace peaked up successfully");
         duration = 4;
     }
     if(cond == 6) {
-        mvprintw(0, 0, "Dagger peaked up successfully");
+        mvprintw(1, 0, "Dagger peaked up successfully");
         duration = 4;
     }
     if(cond == 7) {
-        mvprintw(0, 0, "Magic Wand peaked up successfully");
+        mvprintw(1, 0, "Magic Wand peaked up successfully");
         duration = 4;
     }
     if(cond == 8) {
-        mvprintw(0, 0, "Normal arrow peaked up successfully");
+        mvprintw(1, 0, "Normal arrow peaked up successfully");
         duration = 4;
     }
     if(cond == 9) {
-        mvprintw(0, 0, "Sword peaked up successfully");
+        mvprintw(1, 0, "Sword peaked up successfully");
         duration = 4;
     }
     if(cond == 10) {
-        mvprintw(0, 0, "first drop your weapon");
+        mvprintw(1, 0, "first drop your weapon");
         duration = 2;
     }
     if(cond == 11) {
-        mvprintw(0, 0, "You don't have this weapon");
+        mvprintw(1, 0, "You don't have this weapon");
         duration = 2;
     }
     if(cond == 12) {
-        mvprintw(0, 0, "weapon changed successfully");
+        mvprintw(1, 0, "weapon changed successfully");
         duration = 2;
     }
     if(cond == 13) {
-        mvprintw(0, 0, "weapon dropped sucessfully");
+        mvprintw(1, 0, "weapon dropped sucessfully");
         duration = 2;
     }
     if(cond == 14) {
-        mvprintw(0, 0, "health spell picked up secussfully");
+        mvprintw(1, 0, "health spell picked up secussfully");
         duration = 4;
     }
     if(cond == 15) {
-        mvprintw(0, 0, "speed spell picked up secussfully");
+        mvprintw(1, 0, "speed spell picked up secussfully");
         duration = 4;
     }
     if(cond == 16) {
-        mvprintw(0, 0, "damage spell picked up secussfully");
+        mvprintw(1, 0, "damage spell picked up secussfully");
         duration = 4;
     }
     if(cond == 17) {
-        mvprintw(0, 0, "You earned 5 golds");
+        mvprintw(1, 0, "You earned 5 golds");
         duration = 4;
     }
     if(cond == 18) {
-        mvprintw(0, 0, "You earned 30 golds");
+        mvprintw(1, 0, "You earned 30 golds");
         duration = 4;
     }
     if(cond == 19) {
-        mvprintw(0, 0, "You don't hold any weapon right now");
+        mvprintw(1, 0, "You don't hold any weapon right now");
         duration = 4;
     }
     if(cond == 20) {
-        mvprintw(0, 0, "You killed a Deamon");
+        mvprintw(1, 0, "You killed a Deamon");
         duration = 4;
     }
     if(cond == 21) {
-        mvprintw(0, 0, "You killed a Fire Breathing Monster");
+        mvprintw(1, 0, "You killed a Fire Breathing Monster");
         duration = 4;
     }
     if(cond == 22) {
-        mvprintw(0, 0, "You killed a Giant");
+        mvprintw(1, 0, "You killed a Giant");
         duration = 4;
     }
     if(cond == 23) {
-        mvprintw(0, 0, "You killed a Snake");
+        mvprintw(1, 0, "You killed a Snake");
         duration = 4;
     }
     if(cond == 24) {
-        mvprintw(0, 0, "You killed a Unⅾeeⅾ");
+        mvprintw(1, 0, "You killed a Unⅾeeⅾ");
         duration = 4;
     }
     if(cond == 36) {
-        mvprintw(0, 0, "You have eaten corrupt food");
+        mvprintw(1, 0, "You have eaten corrupt food");
         duration = 4;
     }
     //
 
     duration = 4;
     if(cond == 25) {
-        mvprintw(0, 0, "You have hitted Deamon %d units", damage);
+        mvprintw(1, 0, "You have hitted Deamon %d units", damage);
     }
     if(cond == 26) {
-        mvprintw(0, 0, "You have hitted Fire Breathing Monster %d units", damage);
+        mvprintw(1, 0, "You have hitted Fire Breathing Monster %d units", damage);
     }
     if(cond == 27) {
-        mvprintw(0, 0, "You have hitted Giant %d units", damage);
+        mvprintw(1, 0, "You have hitted Giant %d units", damage);
     }
     if(cond == 28) {
-        mvprintw(0, 0, "You have hitted Snake %d units", damage);
+        mvprintw(1, 0, "You have hitted Snake %d units", damage);
     }
     if(cond == 29) {
-        mvprintw(0, 0, "You have hitted Undead %d units", damage);
+        mvprintw(1, 0, "You have hitted Undead %d units", damage);
     }
     if(cond == 40) {
-        mvprintw(0, 0, "%s", ramz);
+        mvprintw(1, 0, "%s", ramz);
         duration = 7;
     }
     if(cond == 50) {
-        mvprintw(0, 0, "You Got 🟨 Notice!");
+        mvprintw(1, 0, "You Got 🟨 Notice!");
 
     }
     if(cond == 51) {
-        mvprintw(0, 0, "You Got 🟧 Notice!");
+        mvprintw(1, 0, "You Got 🟧 Notice!");
     }
     if(cond == 52) {
-        mvprintw(0, 0, "You Got 🟥 Notice!");
+        mvprintw(1, 0, "You Got 🟥 Notice!");
     }
     if(cond == 60) {
-        mvprintw(0, 0, "Welcome to New Level");
+        mvprintw(1, 0, "Welcome to New Level");
         duration = 7;
     }
     if(cond == 70) {
-        mvprintw(0, 0, "Welcome to New Room");
+        mvprintw(1, 0, "Welcome to New Room");
         duration = 7;
     }
 }
@@ -1889,9 +1889,27 @@ void throwi(int kind, int x, int y, int dir, int len, int damage) {
 }
 
 void print_down() {
-    mvprintw(28, 2, "wealth 🧈🧈 : %lf", player_wealth);
-    mvprintw(28, 52, "health 💖 : %lf", player_hp);
-    mvprintw(28, 102, "food 🍏: %lf", player_hunger);
+    if(weapon == 0) {
+        mvaddstr(28, 112, "Weapon: \U00002692");
+    }
+    else if(weapon == 1) {
+        mvaddstr(28, 112, "Weapon: \U0001F5E1");
+    }
+    else if(weapon == 2) {
+        mvaddstr(28, 112, "Weapon: \U0001FA84");
+    }
+    else if(weapon == 3) {
+        mvaddstr(28, 112, "Weapon: \U000027B3");
+    }
+    else if(weapon == 4) {
+        mvaddstr(28, 112, "Weapon: \U00002694");
+    }
+    else {
+        mvaddstr(28, 112, "Weapon:      ");
+    }
+    mvprintw(28, 2, "wealth 🧈🧈 : %.2lf", player_wealth);
+    mvprintw(28, 42, "health 💖 : %.2lf", player_hp);
+    mvprintw(28, 82, "food 🍏: %.2lf", player_hunger);
 }
 
 void edit_user(char* name_bazikon, int ted_bazi) {
@@ -1998,6 +2016,7 @@ void move_player(int player_x, int player_y, char* name_bazikon, int ted_bazi, i
             next_ch = 0;
         }
         int new_room = 0;
+        mvprintw(3, 0, "🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰");
         if(last_move == '#')
             new_room = 1;
         if(level == 4) {
@@ -2018,6 +2037,7 @@ void move_player(int player_x, int player_y, char* name_bazikon, int ted_bazi, i
                 while(true) {
                     clear();
                     mvprintw(LINES/2, COLS/2, "You Won!");
+                    mvprintw(LINES/2 + 2, COLS/2 - 5, "You earnt %.2lf Golds", player_wealth);
                     int dmch = getch();
                     if(dmch == 'q') {
                         bazikon_menu(name_bazikon, ted_bazi + 1);
