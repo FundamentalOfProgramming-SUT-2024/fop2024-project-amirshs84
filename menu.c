@@ -6,6 +6,8 @@
 #include <unistd.h>
 #include <locale.h>
 #include <regex.h>
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_mixer.h>
 
 #define HEIGHT 10
 #define WIDTH 30
@@ -198,12 +200,35 @@ L"⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
     };
 
 void bazikon_menu(char* name_bazikon, int ted_bazi);
+void first_page();
 
 char* The_Name;
 
 #include "map.c"
 
 void first_page();
+void new_login();
+
+void playMusic(const char *filename) {
+    if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) == -1) {
+        fprintf(stderr, "SDL_mixer could not initialize! SDL_mixer Error: %s\n", Mix_GetError());
+        return;
+    }
+
+    Mix_Music *music = Mix_LoadMUS(filename);
+    if (!music) {
+        fprintf(stderr, "Failed to load music! SDL_mixer Error: %s\n", Mix_GetError());
+        return;
+    }
+
+    Mix_PlayMusic(music, -1); // -1 means loop indefinitely
+
+    // Wait for user input to stop the music
+    getch(); // Wait for a key press
+
+    Mix_FreeMusic(music);
+    Mix_CloseAudio();
+}
 
 
 int add_email(char* s) {
@@ -735,6 +760,11 @@ void bazikon_menu(char* name_bazikon, int ted_bazi) {
                 }
             }
         }
+        if(dmch == 'q') {
+            clear();
+            new_login();
+            break;
+        }
         refresh();
     }
     delwin(win);
@@ -924,6 +954,10 @@ void new_login() {
                 }
             }
         }
+        if(dmch == 'q') {
+            first_page();
+            break;
+        }
         refresh();
     }
 }
@@ -1070,6 +1104,10 @@ void new_register() {
             }
             move(pos_x, ty);
         }
+        if(dmch == 'q') {
+            first_page();
+            break;
+        }
         refresh();
     }
     delwin(win);
@@ -1078,10 +1116,10 @@ void new_register() {
 }
 
 void first_page() {
+    refresh();
     curs_set(0);
     noecho(); 
     clear();
-    refresh();
     for(int i = 0; i < sizeof(ascii)/sizeof(ascii[0]); i++) {
         mvaddwstr(i, 0, ascii[i]);
     }
@@ -1119,6 +1157,11 @@ void first_page() {
 
         wrefresh(win);
         int ch = getch();
+        if(ch == 'q') {
+            endwin();
+            exit(0);
+            break;
+        }
         if (ch == '8') {
             current_option = (current_option == 0) ? 1 : 0; 
         } 

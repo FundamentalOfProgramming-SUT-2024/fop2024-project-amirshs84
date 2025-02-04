@@ -1298,92 +1298,110 @@ void aslahe_menu(char* name_bazikon, int ted_bazi, int level) {
         mvprintw(10, 0, ">         Dagger          🗡              %d              12           5               d", aslahe[1]);
         mvprintw(12, 0, ">       Magic Wand        🪄             %d              15           10              o", aslahe[2]);
         mvprintw(14, 0, ">      Normal arrow       ➳              %d              5            5               a", aslahe[3]);
+        if(weapon == 0) {
+            mvaddstr(16, 0, "Weapon: \U00002692");
+        }
+        else if(weapon == 1) {
+            mvaddstr(16, 0, "Weapon: \U0001F5E1");
+        }
+        else if(weapon == 2) {
+            mvaddstr(16, 0, "Weapon: \U0001FA84");
+        }
+        else if(weapon == 3) {
+            mvaddstr(16, 0, "Weapon: \U000027B3");
+        }
+        else if(weapon == 4) {
+            mvaddstr(16, 0, "Weapon: \U00002694");
+        }
+        else {
+            mvaddstr(16, 0,  "Weapon:      ");
+        }
         move(p_x, p_y);
         int ch = getch();
         if(ch == 'm') {
             if(weapon != -1) {
-                mvprintw(16, 0, "                                              ");
-                mvprintw(16, 0, "first drop your current weapon");
+                mvprintw(18, 0, "                                              ");
+                mvprintw(18, 0, "first drop your current weapon");
             }
             else if(aslahe[0] == 0){
-                mvprintw(16, 0, "                                              ");
-                mvprintw(16, 0, "You don't have this weapon");
+                mvprintw(18, 0, "                                              ");
+                mvprintw(18, 0, "You don't have this weapon");
             }
             else {
                 weapon = 0;
-                mvprintw(16, 0, "                                              ");
-                mvprintw(16, 0, "weapon changed to Mace secessfully");
+                mvprintw(18, 0, "                                              ");
+                mvprintw(18, 0, "weapon changed to Mace secessfully");
                 break;
             }
         }
         if(ch == 'r') {
             if(weapon != -1) {
-                mvprintw(16, 0, "                                              ");
-                mvprintw(16, 0, "first drop your current weapon");
+                mvprintw(18, 0, "                                              ");
+                mvprintw(18, 0, "first drop your current weapon");
             }
             else if(aslahe[4] == 0){
-                mvprintw(16, 0, "                                              ");
-                mvprintw(16, 0, "You don't have this weapon");
+                mvprintw(18, 0, "                                              ");
+                mvprintw(18, 0, "You don't have this weapon");
             }
             else {
                 weapon = 4;
-                mvprintw(16, 0, "                                              ");
-                mvprintw(16, 0, "weapon changed to Sword secessfully");
+                mvprintw(18, 0, "                                              ");
+                mvprintw(18, 0, "weapon changed to Sword secessfully");
                 break;
             }
         }
         if(ch == 'd') {
             if(weapon != -1) {
-                mvprintw(16, 0, "                                              ");
-                mvprintw(16, 0, "first drop your current weapon");
+                mvprintw(18, 0, "                                              ");
+                mvprintw(18, 0, "first drop your current weapon");
             }
             else if(aslahe[1] == 0){
-                mvprintw(16, 0, "                                              ");
-                mvprintw(16, 0, "You don't have this weapon");
+                mvprintw(18, 0, "                                              ");
+                mvprintw(18, 0, "You don't have this weapon");
             }
             else {
                 weapon = 1;
-                mvprintw(16, 0, "                                              ");
-                mvprintw(16, 0, "weapon changed to Dagger secessfully");
+                mvprintw(18, 0, "                                              ");
+                mvprintw(18, 0, "weapon changed to Dagger secessfully");
                 break;
             }
         }
         if(ch == 'o') {
             if(weapon != -1) {
-                mvprintw(16, 0, "                                              ");
-                mvprintw(16, 0, "first drop your current weapon");
+                mvprintw(18, 0, "                                              ");
+                mvprintw(18, 0, "first drop your current weapon");
             }
             else if(aslahe[2] == 0){
-                mvprintw(16, 0, "                                              ");
-                mvprintw(16, 0, "You don't have this weapon");
+                mvprintw(18, 0, "                                              ");
+                mvprintw(18, 0, "You don't have this weapon");
             }
             else {
                 weapon = 2;
-                mvprintw(16, 0, "                                              ");
-                mvprintw(16, 0, "weapon changed to Magic Wand secessfully");
+                mvprintw(18, 0, "                                              ");
+                mvprintw(18, 0, "weapon changed to Magic Wand secessfully");
                 break;
             }
         }
         if(ch == 'a') {
             if(weapon != -1) {
-                mvprintw(16, 0, "                                              ");
-                mvprintw(16, 0, "first drop your current weapon");
+                mvprintw(18, 0, "                                              ");
+                mvprintw(18, 0, "first drop your current weapon");
             }
             else if(aslahe[3] == 0){
-                mvprintw(16, 0, "                                              ");
-                mvprintw(16, 0, "You don't have this weapon");
+                mvprintw(18, 0, "                                              ");
+                mvprintw(18, 0, "You don't have this weapon");
             }
             else {
                 weapon = 3;
-                mvprintw(16, 0, "                                              ");
-                mvprintw(16, 0, "weapon changed to Normal Arrow secessfully");
+                mvprintw(18, 0, "                                              ");
+                mvprintw(18, 0, "weapon changed to Normal Arrow secessfully");
                 break;
             }
         }
         if(ch == 'w') {
             weapon = -1;
-            mvprintw(16, 0, "                                              ");
-            mvprintw(16, 0, "weapon dropped secessfully");
+            mvprintw(18, 0, "                                              ");
+            mvprintw(18, 0, "weapon dropped secessfully");
         }
         if(ch == 'q')
             break;
@@ -1890,26 +1908,26 @@ void throwi(int kind, int x, int y, int dir, int len, int damage) {
 
 void print_down() {
     if(weapon == 0) {
-        mvaddstr(28, 112, "Weapon: \U00002692");
+        mvaddstr(30, 112, "Weapon: \U00002692");
     }
     else if(weapon == 1) {
-        mvaddstr(28, 112, "Weapon: \U0001F5E1");
+        mvaddstr(30, 112, "Weapon: \U0001F5E1");
     }
     else if(weapon == 2) {
-        mvaddstr(28, 112, "Weapon: \U0001FA84");
+        mvaddstr(30, 112, "Weapon: \U0001FA84");
     }
     else if(weapon == 3) {
-        mvaddstr(28, 112, "Weapon: \U000027B3");
+        mvaddstr(30, 112, "Weapon: \U000027B3");
     }
     else if(weapon == 4) {
-        mvaddstr(28, 112, "Weapon: \U00002694");
+        mvaddstr(30, 112, "Weapon: \U00002694");
     }
     else {
-        mvaddstr(28, 112, "Weapon:      ");
+        mvaddstr(30, 112, "Weapon:      ");
     }
-    mvprintw(28, 2, "wealth 🧈🧈 : %.2lf", player_wealth);
-    mvprintw(28, 42, "health 💖 : %.2lf", player_hp);
-    mvprintw(28, 82, "food 🍏: %.2lf", player_hunger);
+    mvprintw(30, 2, "wealth 🧈🧈 : %.2lf", player_wealth);
+    mvprintw(30, 42, "health 💖 : %.2lf", player_hp);
+    mvprintw(30, 82, "food 🍏: %.2lf", player_hunger);
 }
 
 void edit_user(char* name_bazikon, int ted_bazi) {
@@ -2016,6 +2034,7 @@ void move_player(int player_x, int player_y, char* name_bazikon, int ted_bazi, i
             next_ch = 0;
         }
         int new_room = 0;
+        mvprintw(28, 0, "🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰");
         mvprintw(3, 0, "🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰");
         if(last_move == '#')
             new_room = 1;
@@ -2027,19 +2046,38 @@ void move_player(int player_x, int player_y, char* name_bazikon, int ted_bazi, i
             }
             if(okss) {
                 edit_user(name_bazikon, ted_bazi);
-                tel_hp = 0;
-                tel_speed = 0;
-                tel_power = 0;
-                player_wealth = 0;
-                player_hp = 100;
-                player_hunger = 100;
-                weapon = 0;
                 while(true) {
                     clear();
-                    mvprintw(LINES/2, COLS/2, "You Won!");
-                    mvprintw(LINES/2 + 2, COLS/2 - 5, "You earnt %.2lf Golds", player_wealth);
+                    init_pair(23, COLOR_GREEN, COLOR_BLACK);
+                    init_pair(24, COLOR_YELLOW, COLOR_BLACK);
+                    attron(COLOR_PAIR(24));
+                    mvprintw(11, 30, "             ___________");
+                    mvprintw(12, 30, "            '._==_==_=_.'");
+                    mvprintw(13, 30, "            .-\\:      /-.");
+                    mvprintw(14, 30, "           | (|:.     |) |");
+                    mvprintw(15, 30, "            '-|:.     |-'");
+                    mvprintw(16, 30, "             \\::.    /");
+                    mvprintw(17, 30, "               '::. .'");
+                    mvprintw(18, 30, "                 ) (");
+                    mvprintw(19, 30, "               _.' '._");
+                    mvprintw(20, 30, "               _.' '._");
+                    mvprintw(21, 30, "              `\"\"\"\"\"\"\"\"");
+                    attroff(COLOR_PAIR(24));
+                    attron(COLOR_PAIR(23));
+                    mvprintw(15, 24 + 30 + 20, "You Won!");
+                    attroff(COLOR_PAIR(23));
+                    attron(COLOR_PAIR(24));
+                    mvprintw(17, 24 + 30 + 20 - 7 + 1, "You earnt %.2lf Golds", player_wealth);
+                    attroff(COLOR_PAIR(24));
                     int dmch = getch();
                     if(dmch == 'q') {
+                        tel_hp = 0;
+                        tel_speed = 0;
+                        tel_power = 0;
+                        player_wealth = 0;
+                        player_hp = 100;
+                        player_hunger = 100;
+                        weapon = 0;
                         bazikon_menu(name_bazikon, ted_bazi + 1);
                         break;
                     }
@@ -2298,7 +2336,7 @@ void move_player(int player_x, int player_y, char* name_bazikon, int ted_bazi, i
             }
             else {
                 weapon = 0;
-                mvprintw(0, 0, "weapon changed to Mace successfully");
+                mvprintw(1, 0, "weapon changed to Mace successfully");
                 duration = 4;
             }
         }
@@ -2311,7 +2349,7 @@ void move_player(int player_x, int player_y, char* name_bazikon, int ted_bazi, i
             }
             else {
                 weapon = 4;
-                mvprintw(0, 0, "weapon changed to Sword successfully");
+                mvprintw(1, 0, "weapon changed to Sword successfully");
                 duration = 4;
             }
         }
@@ -2324,7 +2362,7 @@ void move_player(int player_x, int player_y, char* name_bazikon, int ted_bazi, i
             }
             else {
                 weapon = 1;
-                mvprintw(0, 0, "weapon changed to Dagger successfully");
+                mvprintw(1, 0, "weapon changed to Dagger successfully");
                 duration = 4;
             }
         }
@@ -2337,7 +2375,7 @@ void move_player(int player_x, int player_y, char* name_bazikon, int ted_bazi, i
             }
             else {
                 weapon = 2;
-                mvprintw(0, 0, "weapon changed to Magic Wand successfully");
+                mvprintw(1, 0, "weapon changed to Magic Wand successfully");
                 duration = 4;
             }
         }
@@ -2350,7 +2388,7 @@ void move_player(int player_x, int player_y, char* name_bazikon, int ted_bazi, i
             }
             else {
                 weapon = 3;
-                mvprintw(0, 0, "weapon changed to Normal arrow successfully");
+                mvprintw(1, 0, "weapon changed to Normal arrow successfully");
                 duration = 4;
             }
         }
@@ -2430,10 +2468,13 @@ void move_player(int player_x, int player_y, char* name_bazikon, int ted_bazi, i
             weapon = 0;
             char* tttp = (char*)malloc(100);
             strcpy(tttp, "RecentGame_");
-            strcat(tttp, name_bazikon);
+            strcat(tttp, The_Name);
             save_map(name_bazikon, ted_bazi, level);
             strcpy(tttp, "RecentGame_");
-            strcat(tttp, name_bazikon);
+            strcat(tttp, The_Name);
+            if(strcmp(The_Name, name_bazikon) != 0) {
+                strcpy(tttp, name_bazikon);
+            }
             FILE* mount = fopen(tttp, "w");
             fprintf(mount, "%d %d %d %d %c %d %d", player_x, player_y, ted_bazi, level, last_move, player_color, hardness);
             fprintf(mount, " %lf", player_hp);
@@ -2755,7 +2796,30 @@ void move_player(int player_x, int player_y, char* name_bazikon, int ted_bazi, i
     }
     while(true) {
         clear();
-        mvprintw(LINES/2, COLS/2, "Looser!");
+        mvprintw(6, 20, "                      :::!~!!!!!:.:");
+        mvprintw(7, 20, "                  .xUHWH!! !!?M88WHX:.");
+        mvprintw(8, 20, "                .X*#M@$!!  !X!M$$$$$$WWx:.");
+        mvprintw(9, 20, "               :!!!!!!?H! :!$!$$$$$$$$$$8X:");
+        mvprintw(10, 20, "              !!~  ~:~!! :~!$!#$$$$$$$$$$8X:");
+        mvprintw(11, 20, "             :!~::!H!<   ~.U$X!?R$$$$$$$$MM!");
+        mvprintw(12, 20, "             ~!~!!!!~~ .:XW$$$U!!?$$$$$$RMM!");
+        mvprintw(13, 20, "               !:~~~ .:!M\"T#$$$$WX??#MRRMMM!");
+        mvprintw(14, 20, "               ~?WuxiW*`   `\"#$$$$8!!!!!!!!!");
+        mvprintw(15, 20, "             :X- M$$$$       `\"T#$T~!8$WUXU~");
+        mvprintw(16, 20, "             :`  ~#$$$m:        ~!~ ?$$$$$$");
+        mvprintw(17, 20, "          :!`.-   ~T$$$$8xx.  .xWW- ~\"\"##*\"");
+        mvprintw(18, 20, ".....   -~~:<` !    ~?T#$$@@W@*?$$      /`");
+        mvprintw(19, 20, "W$@@M!!! .!~~ !!     .:XUW$W!~ `\"~:    :");
+        mvprintw(20, 20, "#\"~~`.:x `!!  !H:   !WM$$$$Ti.: .!WUn+!`");
+        mvprintw(21, 20, ":::~:!!`:X~ .: ?H.!u \"$$$B$$$!W:U!T$$M~");
+        mvprintw(22, 20, ".~~   :X@!.-~   ?@WTWo(\"*$$$W$TH$! `");
+        mvprintw(23, 20, "Wi.~!X$?!-~    : ?$$$B$Wu(\"**$RM!");
+        mvprintw(24, 20, "$R@i.~~ !     :   ~$$$$$B$$en:``");
+        mvprintw(25, 20, "?MXT@Wx.~    :     ~\"##*$$$$M~\"");
+        init_pair(75, COLOR_RED, COLOR_BLACK);
+        attron(COLOR_PAIR(75));
+        mvprintw(16, 90, "Looser!");
+        attroff(COLOR_PAIR(75));
         int dmch = getch();
         if(dmch == 'q') {
             bazikon_menu(name_bazikon, ted_bazi);
@@ -4136,11 +4200,11 @@ void make_new_level(int level, int defualt, int dx1, int dy1, int dl, int dw) {
         }
         int x1 = 5 +  rand()%2;
         int y1 = rand()%2;
-        int l = 4 + rand()%7;
-        int w = 4 + rand()%4;
+        int l = 4 + rand()%5;
+        int w = 4 + rand()%3;
         if(i > 3)
             x1 += 13;
-        y1 += 1 + (i%4)*17;
+        y1 += 2 + (i%4)*17;
         rm[i].x = x1;
         rm[i].y = y1;
         rm[i].lenth = l;
