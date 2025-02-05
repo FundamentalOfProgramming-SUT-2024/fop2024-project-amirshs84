@@ -742,8 +742,6 @@ void bazikon_menu(char* name_bazikon, int ted_bazi) {
             }
             if(pos_x == 8 + tx) {
                 clear();
-
-
                 WINDOW *win = newwin(16, 50, 11, 6);
                 int tx = 12;
                 int ty = 8;

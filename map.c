@@ -1973,19 +1973,21 @@ void move_player(int player_x, int player_y, char* name_bazikon, int ted_bazi, i
                 }
             }
         }
-        for(int i = 0; i < 50; i++) {
-            int sik = 0;
-            for(int j = 0; j < 200; j++) {
-                if(map[i][j] == '.') {
-                    sik = 1;
-                    player_x = i;
-                    player_y = j;
-                    break;
-                }
-            }
-            if(sik)
-                break;
-        }
+        // for(int i = 0; i < 50; i++) {
+        //     int sik = 0;
+        //     for(int j = 0; j < 200; j++) {
+        //         if(map[i][j] == '.') {
+        //             sik = 1;
+        //             player_x = i;
+        //             player_y = j;
+        //             break;
+        //         }
+        //     }
+        //     if(sik)
+        //         break;
+        // }
+        player_x = 8;
+        player_y = 22;
     }
     map[player_x][player_y] = 'A';
     //last_move = '.';
@@ -2079,7 +2081,7 @@ void move_player(int player_x, int player_y, char* name_bazikon, int ted_bazi, i
                     okss = 0;
             }
             if(okss) {
-                edit_user(name_bazikon, ted_bazi);
+                edit_user(The_Name, ted_bazi);
                 while(true) {
                     clear();
                     init_pair(23, COLOR_GREEN, COLOR_BLACK);
@@ -2112,7 +2114,7 @@ void move_player(int player_x, int player_y, char* name_bazikon, int ted_bazi, i
                         player_hp = 100;
                         player_hunger = 100;
                         weapon = 0;
-                        bazikon_menu(name_bazikon, ted_bazi + 1);
+                        bazikon_menu(The_Name, ted_bazi + 1);
                         break;
                     }
                 }
@@ -2770,6 +2772,7 @@ void move_player(int player_x, int player_y, char* name_bazikon, int ted_bazi, i
             for(int j = 0; j < 50; j++)
                 last_monster[j] = '.';
             make_new_level(5, -1, -1, -1, -1, -1);
+            save_map(name_bazikon, ted_bazi, 5);
             move_player(0, 0, name_bazikon, ted_bazi, 5);
             load_map(name_bazikon, ted_bazi, level);
             clear();
@@ -2864,7 +2867,7 @@ void move_player(int player_x, int player_y, char* name_bazikon, int ted_bazi, i
         attroff(COLOR_PAIR(75));
         int dmchh = getch();
         if(dmchh == 'q') {
-            bazikon_menu(name_bazikon, ted_bazi);
+            bazikon_menu(The_Name, ted_bazi);
             break;
         }
     }
