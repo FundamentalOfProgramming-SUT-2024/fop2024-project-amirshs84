@@ -204,10 +204,14 @@ void first_page();
 
 char* The_Name;
 
-#include "map.c"
+Mix_Music *music;
+char* The_music;
 
-void first_page();
-void new_login();
+
+void endMusic() {
+    Mix_FreeMusic(music);
+    Mix_CloseAudio();
+}
 
 void playMusic(const char *filename) {
     if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) == -1) {
@@ -215,20 +219,19 @@ void playMusic(const char *filename) {
         return;
     }
 
-    Mix_Music *music = Mix_LoadMUS(filename);
+    music = Mix_LoadMUS(filename);
     if (!music) {
         fprintf(stderr, "Failed to load music! SDL_mixer Error: %s\n", Mix_GetError());
         return;
     }
 
-    Mix_PlayMusic(music, -1); // -1 means loop indefinitely
-
-    // Wait for user input to stop the music
-    getch(); // Wait for a key press
-
-    Mix_FreeMusic(music);
-    Mix_CloseAudio();
+    Mix_PlayMusic(music, -1);
 }
+
+#include "map.c"
+
+void first_page();
+void new_login();
 
 
 int add_email(char* s) {
@@ -314,6 +317,7 @@ void start_game(char* name_bazikon, int ted_bazi, int level, int player_x, int p
 }
 
 void NEW_GAME(char* name_bazikon,  int ted_bazi) {
+    last_move = '.';
     curs_set(0);
     for(int i = 0; i < 50; i++) {
         for(int j = 0; j < 200; j++) {
@@ -401,8 +405,8 @@ void setti() {
         mvaddwstr(i + 2, 75, ascii8[i]);
     }
     refresh();
-    WINDOW *win = newwin(22, 36, 6, 14);
-    int tx = 7;
+    WINDOW *win = newwin(30, 36, 1, 14);
+    int tx = 3;
     int ty = 16;
     int pos_x = tx + 2;
     box(win, 0, 0); 
@@ -422,6 +426,10 @@ void setti() {
         mvprintw(12 + tx, ty, "> Easy ");
         mvprintw(14 + tx, ty, "> Normal ");
         mvprintw(16 + tx, ty, "> Hard ");
+        mvprintw(18 + tx, ty, "Music: ");
+        mvprintw(20 + tx, ty, "> Truth");
+        mvprintw(22 + tx, ty, "> Delta");
+        mvprintw(24 + tx, ty, "> Turn off");
         werase(win);
         box(win, 0, 0);
         wrefresh(win);
@@ -430,19 +438,19 @@ void setti() {
         move(pos_x, ty);
         int dmch = getch();
         if(dmch == '2') {
-            if(pos_x == 16 + tx)
+            if(pos_x == 24 + tx)
                 pos_x = 2 + tx;
             else
                 pos_x += 2;
-            if(pos_x == 10 + tx)
+            if(pos_x == 10 + tx || pos_x == 18 + tx)
                 pos_x += 2;
         }
         if(dmch == '8') {
             if(pos_x == 2 + tx)
-                pos_x = 16 + tx;
+                pos_x = 24 + tx;
             else
                 pos_x -= 2;
-            if(pos_x == 10 + tx)
+            if(pos_x == 10 + tx|| pos_x == 18 + tx)
                 pos_x -= 2;
         }
         move(pos_x, ty);
@@ -452,15 +460,45 @@ void setti() {
             if(pos_x - tx <= 8) {
                 player_color = ((pos_x - tx)/2) - 1;
                 refresh();
-                mvprintw(18 + tx, ty, "Color Changed successfully");
+                mvprintw(26 + tx, ty, "Color Changed successfully");
                 refresh();
                 napms(2000);
                 refresh();
             }
-            if(pos_x - tx >= 12) {
+            else if(pos_x == 20 + tx) {
+                if(music_on) {
+                    endMusic();
+                    strcpy(The_music, "03 Truth and Reconciliation.mp3");
+                    playMusic(The_music);
+                }
+                else {
+                    music_on = 1;
+                    strcpy(The_music, "03 Truth and Reconciliation.mp3");
+                    playMusic(The_music);
+                }
+            }
+            else if(pos_x == 22 + tx) {
+                if(music_on) {
+                    endMusic();
+                    strcpy(The_music, "09 Delta Halo Suite.mp3");
+                    playMusic(The_music);
+                }
+                else {
+                    music_on = 1;
+                    strcpy(The_music, "09 Delta Halo Suite.mp3");
+                    playMusic(The_music);
+                }
+            }
+            else if(pos_x == 24 + tx) {
+                if(music_on) {
+                    endMusic();
+                    music_on = 0;
+                }
+            }
+            else if(pos_x - tx >= 12) {
                 hardness = (pos_x - tx - 12)/2;
                 refresh();
-                mvprintw(18 + tx, ty, "Hardness Changed successfully");
+                mvprintw(26 + tx, ty, "Hardness Changed successfully");
                 refresh();
                 napms(2000);
                 refresh();
@@ -628,6 +666,10 @@ void scoreboard(char* name_bazikon, int page) {
 }
 
 void bazikon_menu(char* name_bazikon, int ted_bazi) {
+    if(music_on) {
+        endMusic();
+        playMusic(The_music);
+    }
     clear();
     curs_set(1);
     WINDOW *win = newwin(14, 50, 11, 6);
@@ -1202,7 +1244,16 @@ int main() {
     start_color();
     srand(time(NULL));
     keypad(stdscr, TRUE);
+    refresh();
+    The_music = (char*)malloc(100);
+    strcpy(The_music, "03 Truth and Reconciliation.mp3");
+    if (SDL_Init(SDL_INIT_AUDIO) < 0) {
+        return 1;
+    }
+    playMusic(The_music);
     first_page();
+    endwin();
+    SDL_Quit();
 }
 
 

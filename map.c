@@ -8,6 +8,7 @@
 
 void save_map(char* name_bazicon, int ted_bazi, int level);
 void load_map(char* name_bazicon, int ted_bazi, int level);
+void make_new_level(int level, int defualt, int dx1, int dy1, int dl, int dw);
 
 struct room {
     int x;
@@ -32,6 +33,8 @@ struct monsters {
 
 struct monsters monster[50];
 int tot_monster = 0;
+
+int music_on = 1;
 
 int food[3];
 int aslahe[5];
@@ -1959,8 +1962,10 @@ void edit_user(char* name_bazikon, int ted_bazi) {
     fclose(fptr4);
 }
 
+int last_music = -1;
+
 void move_player(int player_x, int player_y, char* name_bazikon, int ted_bazi, int level) {
-    if(level == 4) {
+    if(level == 4 || level == 5) {
         for(int i = 0; i < 50; i++) {
             for(int j = 0; j < 200; j++) {
                 if(map[i][j] == 'A') {
@@ -2002,6 +2007,24 @@ void move_player(int player_x, int player_y, char* name_bazikon, int ted_bazi, i
     time(&fased1);
     print_message(60, 0);
     while(1) {
+        if(tem[s_rm[player_x][player_y]] != last_music) {
+            last_music = tem[s_rm[player_x][player_y]];
+            if(music_on) {
+                endMusic();
+                if(last_music == 0) {
+                    playMusic(The_music);
+                }
+                if(last_music == 1) {
+                    playMusic("02 Brothers in Arms.mp3");
+                }
+                if(last_music == 2) {
+                    playMusic("07 Desperate Measure.mp3");
+                }
+                if(last_music == 3) {
+                    playMusic("10 Machines and Might.mp3");
+                }
+            }
+        }
         time(&fased2);
         if(difftime(fased2, fased1) >= 90) {
             for(int i = 0; i < 50; i++) {
@@ -2038,6 +2061,17 @@ void move_player(int player_x, int player_y, char* name_bazikon, int ted_bazi, i
         mvprintw(3, 0, "🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰");
         if(last_move == '#')
             new_room = 1;
+        if(level == 5) {
+            int okss = 1;
+            for(int i = 0; i < tot_monster; i++) {
+                if(monster[i].alive == 1)
+                    okss = 0;
+            }
+            if(okss) {
+                clear();
+                break;
+            }
+        }
         if(level == 4) {
             int okss = 1;
             for(int i = 0; i < tot_monster; i++) {
@@ -2729,9 +2763,20 @@ void move_player(int player_x, int player_y, char* name_bazikon, int ted_bazi, i
             fsdss = 0;
         }
         if(last_move == 'P' && fsdss != 2) {
+            save_map(name_bazikon, ted_bazi, level);
+            clear();
+            tot_monster = 0;
+            char last_ch = last_move;
+            for(int j = 0; j < 50; j++)
+                last_monster[j] = '.';
+            make_new_level(5, -1, -1, -1, -1, -1);
+            move_player(0, 0, name_bazikon, ted_bazi, 5);
+            load_map(name_bazikon, ted_bazi, level);
+            clear();
+            print_all(0, 0);
+            last_move = last_ch;
             map[player_x][player_y] = 'R';
             last_move = 'R';
-            player_hp -= 10;
             fsdss = 1;
         }
         if(last_move == 'm') {
@@ -2791,10 +2836,7 @@ void move_player(int player_x, int player_y, char* name_bazikon, int ted_bazi, i
             player_hp = 100;
             player_hunger = 100;
             weapon = 0;
-            break;
-        }
-    }
-    while(true) {
+            while(true) {
         clear();
         mvprintw(6, 20, "                      :::!~!!!!!:.:");
         mvprintw(7, 20, "                  .xUHWH!! !!?M88WHX:.");
@@ -2820,12 +2862,16 @@ void move_player(int player_x, int player_y, char* name_bazikon, int ted_bazi, i
         attron(COLOR_PAIR(75));
         mvprintw(16, 90, "Looser!");
         attroff(COLOR_PAIR(75));
-        int dmch = getch();
-        if(dmch == 'q') {
+        int dmchh = getch();
+        if(dmchh == 'q') {
             bazikon_menu(name_bazikon, ted_bazi);
             break;
         }
     }
+            break;
+        }
+    }
+    return;
     // mvprintw(0, 0, "kiiiiiiiiiiiiiiir");
     // sleep(5);
 }
@@ -4210,7 +4256,7 @@ void make_new_level(int level, int defualt, int dx1, int dy1, int dl, int dw) {
         rm[i].lenth = l;
         rm[i].width = w;
     }
-    if(level == 4) {
+    if(level == 4 || level == 5) {
         TOTAL = 1;
         rm[0].x = 7;
         rm[0].y = 21;
@@ -4235,8 +4281,11 @@ void make_new_level(int level, int defualt, int dx1, int dy1, int dl, int dw) {
     else if(tmp == 2) {
         tem[TOTAL - 1] = 3;
     }
-    if(TOTAL == 1) {
+    if(level == 4) {
         tem[0] = 2;
+    }
+    if(level == 5) {
+        tem[0] = 1;
     }
     for(int ind = 0; ind < TOTAL; ind++) {
         if(tem[ind] == 0) {
@@ -4364,7 +4413,116 @@ void make_new_level(int level, int defualt, int dx1, int dy1, int dl, int dw) {
     else if(level < 4) {
         initial_stair(TOTAL, level);
     }
-    make_app(level, TOTAL);
+    if(level == 5) {
+        int otagh = 0;
+        int rx, ry;
+        int tek = rand()%2 + 2 + hardness*2;
+        for(int i = 0; i < tek; i++) {
+            tmp = rand()%150;
+            if(tmp < 30) {
+                while(true) {
+                    rx = rand()%rm[otagh].width;
+                    ry = rand()%rm[otagh].lenth;
+                    if(map[rm[otagh].x + 1 + rx][rm[otagh].y + 1 + ry] != '.') {
+                        continue;
+                    }
+                    break;
+                }
+                map[rm[otagh].x + 1 + rx][rm[otagh].y + 1 + ry] = '0';
+                monster[tot_monster].x = rm[otagh].x + 1 + rx;
+                monster[tot_monster].y = rm[otagh].y + 1 + ry;
+                monster[tot_monster].hp = 5;
+                monster[tot_monster].dist = 0;
+                monster[tot_monster].kind = 0;
+                monster[tot_monster].alive = 1;
+                monster[tot_monster].damage = 4;
+                monster[tot_monster].active = 0;
+                tot_monster++;
+            }
+            else if(tmp < 60) {
+                while(true) {
+                    rx = rand()%rm[otagh].width;
+                    ry = rand()%rm[otagh].lenth;
+                    if(map[rm[otagh].x + 1 + rx][rm[otagh].y + 1 + ry] != '.') {
+                        continue;
+                    }
+                    break;
+                }
+                map[rm[otagh].x + 1 + rx][rm[otagh].y + 1 + ry] = '1';
+                monster[tot_monster].x = rm[otagh].x + 1 + rx;
+                monster[tot_monster].y = rm[otagh].y + 1 + ry;
+                monster[tot_monster].hp = 10;
+                monster[tot_monster].dist = 0;
+                monster[tot_monster].kind = 1;
+                monster[tot_monster].alive = 1;
+                monster[tot_monster].damage = 6;
+                monster[tot_monster].active = 0;
+                tot_monster++;
+            }
+            else if(tmp < 100) {
+                while(true) {
+                    rx = rand()%rm[otagh].width;
+                    ry = rand()%rm[otagh].lenth;
+                    if(map[rm[otagh].x + 1 + rx][rm[otagh].y + 1 + ry] != '.') {
+                        continue;
+                    }
+                    break;
+                }
+                map[rm[otagh].x + 1 + rx][rm[otagh].y + 1 + ry] = '2';
+                monster[tot_monster].x = rm[otagh].x + 1 + rx;
+                monster[tot_monster].y = rm[otagh].y + 1 + ry;
+                monster[tot_monster].hp = 15;
+                monster[tot_monster].dist = 5;
+                monster[tot_monster].kind = 2;
+                monster[tot_monster].alive = 1;
+                monster[tot_monster].damage = 8;
+                monster[tot_monster].active = 0;
+                tot_monster++;
+            }
+            else if(tmp < 130) {
+                while(true) {
+                    rx = rand()%rm[otagh].width;
+                    ry = rand()%rm[otagh].lenth;
+                    if(map[rm[otagh].x + 1 + rx][rm[otagh].y + 1 + ry] != '.') {
+                        continue;
+                    }
+                    break;
+                }
+                map[rm[otagh].x + 1 + rx][rm[otagh].y + 1 + ry] = '3';
+                monster[tot_monster].x = rm[otagh].x + 1 + rx;
+                monster[tot_monster].y = rm[otagh].y + 1 + ry;
+                monster[tot_monster].hp = 20;
+                monster[tot_monster].dist = 1e6;
+                monster[tot_monster].kind = 3;
+                monster[tot_monster].alive = 1;
+                monster[tot_monster].damage = 10;
+                monster[tot_monster].active = 0;
+                tot_monster++;
+            }
+            else if(tmp < 150) {
+                while(true) {
+                    rx = rand()%rm[otagh].width;
+                    ry = rand()%rm[otagh].lenth;
+                    if(map[rm[otagh].x + 1 + rx][rm[otagh].y + 1 + ry] != '.') {
+                        continue;
+                    }
+                    break;
+                }
+                map[rm[otagh].x + 1 + rx][rm[otagh].y + 1 + ry] = '4';
+                monster[tot_monster].x = rm[otagh].x + 1 + rx;
+                monster[tot_monster].y = rm[otagh].y + 1 + ry;
+                monster[tot_monster].hp = 30;
+                monster[tot_monster].dist = 5;
+                monster[tot_monster].kind = 4;
+                monster[tot_monster].alive = 1;
+                monster[tot_monster].damage = 15;
+                monster[tot_monster].active = 0;
+                tot_monster++;
+            }
+        }
+    }
+    else
+        make_app(level, TOTAL);
 }
 
 
@@ -4379,7 +4537,7 @@ void make_new_game(char* name_bazikon, int ted_bazi) {
     weapon = 0;
     for(int i = 0; i <= 4; i++) {
         for(int j = 0; j < 50; j++)
-        last_monster[j] = '.';
+            last_monster[j] = '.';
         if(i == 0) {
             make_new_level(0, -1, -1, -1, -1, -1);
             save_map(name_bazikon, ted_bazi, i);
